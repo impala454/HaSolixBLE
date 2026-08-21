@@ -17,6 +17,7 @@ from SolixBLE import (
     C1000,
     C1000G2,
     F2000,
+    F2000Old,
     F2600,
     F3800,
     Generic,
@@ -50,6 +51,8 @@ def get_power_station_class(model: Models) -> SolixBLEDevice:
         return C1000G2
     elif model is Models.F2000:
         return F2000
+    elif model is Models.F2000_OLD:
+        return F2000Old
     elif model is Models.F2600:
         return F2600
     elif model is Models.F3800:
@@ -116,7 +119,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: SolixBLEConfigEntry) -> 
     entry.runtime_data = device
 
     await hass.config_entries.async_forward_entry_setups(
-        entry, [Platform.SENSOR, Platform.SWITCH]
+        entry, [Platform.SENSOR, Platform.SWITCH, Platform.SELECT, Platform.BUTTON, Platform.NUMBER]
     )
 
     return True
